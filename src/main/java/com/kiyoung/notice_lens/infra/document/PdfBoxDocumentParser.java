@@ -20,6 +20,8 @@ public class PdfBoxDocumentParser implements DocumentParser{
             PDFTextStripper stripper = new PDFTextStripper();
             // 화면에 보이는 위치 순서대로 글자를 정렬
             stripper.setSortByPosition(true);
+            // 추가: OS와 상관없이 줄바꿈 통일
+            stripper.setLineSeparator("\n");
             return stripper.getText(document);
         } catch (IOException e) {
             throw new BusinessException(ErrorCode.TEXT_EXTRACTION_FAILED);

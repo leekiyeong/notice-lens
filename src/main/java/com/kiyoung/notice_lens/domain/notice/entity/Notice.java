@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.type.YesNoConverter;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -27,6 +29,12 @@ public class Notice extends BaseTimeEntity {
 
     @Column(columnDefinition = "TEXT")
     private String extractedText;      // PDF에서 추출한 본문
+
+    @Convert(converter = YesNoConverter.class)
+    @Column(nullable = false, name = "del_yn", length = 1)
+    private boolean deleted;
+
+    private LocalDateTime deletedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

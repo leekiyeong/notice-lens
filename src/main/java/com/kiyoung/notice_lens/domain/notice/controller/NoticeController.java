@@ -1,5 +1,6 @@
 package com.kiyoung.notice_lens.domain.notice.controller;
 
+import com.kiyoung.notice_lens.domain.notice.dto.NoticeExtractResponse;
 import com.kiyoung.notice_lens.domain.notice.dto.NoticeResponse;
 import com.kiyoung.notice_lens.domain.notice.dto.NoticeUploadResponse;
 import com.kiyoung.notice_lens.domain.notice.entity.Notice;
@@ -53,5 +54,11 @@ public class NoticeController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         noticeService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // PDFBOX로 내용 추출
+    @PostMapping("/{id}/extract")
+    public ApiResponse<NoticeExtractResponse> extract(@PathVariable Long id) {
+        return ApiResponse.ok(noticeService.extractText(id));
     }
 }

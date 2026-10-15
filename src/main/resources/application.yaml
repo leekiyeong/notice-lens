@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: notice-lens
+  datasource:
+    url: jdbc:postgresql://localhost:5000/noticelens
+    username: noticelens
+    password: noticelens
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: qwen3:8b
+      embedding:
+        options:
+          model: bge-m3
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+app:
+  storage:
+    path: ./uploads

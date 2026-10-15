@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: noticelens
+      POSTGRES_USER: noticelens
+      POSTGRES_PASSWORD: noticelens
+    ports:
+      - "5000:5432"

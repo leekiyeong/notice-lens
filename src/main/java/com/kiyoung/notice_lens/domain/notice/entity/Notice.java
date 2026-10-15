@@ -40,6 +40,7 @@ public class Notice extends BaseTimeEntity {
     @Column(nullable = false)
     private NoticeStatus status;
 
+    // 생성
     public static Notice create(String title, String originalFileName,
                                 String storedFileName, Long fileSize) {
         Notice notice = new Notice();
@@ -49,6 +50,16 @@ public class Notice extends BaseTimeEntity {
         notice.fileSize = fileSize;
         notice.status = NoticeStatus.UPLOADED;
         return notice;
+    }
+
+    // 삭제
+    public void delete(){
+        if(this.deleted){
+            return;
+        }
+        this.deleted = true;
+        this.deletedAt = LocalDateTime.now();
+        this.status = NoticeStatus.DELETED;
     }
 
     public void completeExtraction(String extractedText) {

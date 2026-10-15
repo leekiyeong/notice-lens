@@ -40,20 +40,25 @@ public class NoticeService {
         return NoticeUploadResponse.from(notice);
     }
 
+    // 삭제 매서드
+    @Transactional
+    public void delete(Long id) {
+        Notice notice = getActiveNotice(id);
+        notice.delete();
+    }
+
     // 조회 매서드 id
     public NoticeResponse findById(Long id) {
-        Notice notice = noticeRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOTICE_NOT_FOUND));
-        return NoticeResponse.from(notice);
+        return NoticeResponse.from(getActiveNotice(id));
     }
 
     // 조회 매서드 all
     public List<NoticeResponse> findAll() {
-        return noticeRepository.findAllByOrderByCreatedAtDesc().stream()
-                // notice -> NoticeResponse.from(notice)
+        return noticeRepository.findAllByDeletedFalseOrderByCreatedAtDesc().stream()
                 .map(NoticeResponse::from)
                 .toList();
     }
+
 
     // 이 클래스 안에서만 쓰기 때문에 private 처리
     private void validatePdf(MultipartFile file) {
@@ -64,5 +69,10 @@ public class NoticeService {
         if(name == null || !name.endsWith(".pdf")) {
             throw new BusinessException(ErrorCode.INVALID_FILE_TYPE);
         }
+    }
+
+    private Notice getActiveNotice(Long id) {
+        return noticeRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOTICE_NOT_FOUND));
     }
 }

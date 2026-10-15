@@ -18,7 +18,9 @@ public enum ErrorCode {
     FILE_SAVE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "파일 저장에 실패했습니다."),
 
     // 공고문
-    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, "공고문을 찾을 수 없습니다.");
+    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, "공고문을 찾을 수 없습니다."),
+    TEXT_EXTRACTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "PDF 텍스트 추출에 실패했습니다."),
+    TEXT_NOT_FOUND(HttpStatus.UNPROCESSABLE_CONTENT, "PDF에서 텍스트를 찾을 수 없습니다.");
 
     private final HttpStatus status;
     private final String message;

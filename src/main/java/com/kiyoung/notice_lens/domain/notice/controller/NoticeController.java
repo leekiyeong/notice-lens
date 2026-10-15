@@ -24,7 +24,7 @@ public class NoticeController {
     // 업로드
     // ResponseEntity<ApiResponse<NoticeUploadResponse>> 반환타입 ->
     // NoticeUploadResponse: 실제 데이터
-    // ApiResponse: 데이터를 success, dada, message로 감싼 공통 응답
+    // ApiResponse: 데이터를 success, data, message로 감싼 공통 응답
     // ResponseEntity: HTTP 상태 코드 추가
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<NoticeUploadResponse>> upload(
@@ -46,5 +46,12 @@ public class NoticeController {
     @GetMapping
     public ApiResponse<List<NoticeResponse>> findAll() {
         return ApiResponse.ok(noticeService.findAll());
+    }
+
+    // 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        noticeService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

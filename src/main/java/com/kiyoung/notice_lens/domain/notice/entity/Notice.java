@@ -62,12 +62,19 @@ public class Notice extends BaseTimeEntity {
         this.status = NoticeStatus.DELETED;
     }
 
+    // 추출 성공
     public void completeExtraction(String extractedText) {
         this.extractedText = extractedText;
         this.status = NoticeStatus.EXTRACTED;
     }
-
+    
+    // AI 분석 완료
+    public void completeAnalysis(){
+        this.status = NoticeStatus.ANALYZED;
+    }
+    
     public void fail() {
         this.status = NoticeStatus.FAILED;
     }
+    
 }

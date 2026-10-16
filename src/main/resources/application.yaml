@@ -19,6 +19,8 @@ spring:
       chat:
         options:
           model: qwen3:8b
+          num-ctx: 8192
+          temperature: 0.1
       embedding:
         options:
           model: bge-m3
